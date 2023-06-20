@@ -21,6 +21,31 @@ const ClientCreate = () => {
     })
   }
   const handleSubmit = () => {
+    if (cliente.identificacion === '') {
+      alert('Debes ingresar una identificación')
+      return
+    }
+    if (cliente.nombres === '') {
+      alert('Debes ingresar un nombre')
+      return
+    }
+    if (cliente.apellidos === '') {
+      alert('Debes ingresar un apellido')
+      return
+    }
+    if (cliente.nombre_local === '') {
+      alert('Debes ingresar un nombre de local')
+      return
+    }
+    if (cliente.telefono_principal === '') {
+      alert('Debes ingresar un teléfono')
+      return
+    }
+    if (cliente.direccion === '') {
+      alert('Debes ingresar una dirección')
+      return
+    }
+
     clienteCreateItem(cliente)
   }
 

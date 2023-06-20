@@ -115,7 +115,7 @@ const ClientesProvider = ({ children }) => {
         },
         body: JSON.stringify(cliente)
       })
-      const data = await response.json()
+
       if (response.status === 200) {
         getClientes()
         setLoading(false)
@@ -123,7 +123,7 @@ const ClientesProvider = ({ children }) => {
       } else if (response.statusText === 'Unauthorized') {
         logoutUser()
       } else {
-        setError(data)
+        alert('Error al cargar los datos, intente de nuevo!')
       }
     } catch (error) {
       alert('Error al cargar los datos, intente de nuevo!')

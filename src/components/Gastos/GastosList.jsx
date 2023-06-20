@@ -17,7 +17,7 @@ const GastosList = () => {
     getGastos()
   }, [])
   const filteredList = filterList(gastos, 'gastos')
-  console.log(gastos)
+
   return (
     <View style={tw`flex-1 py-2`}>
       <CreateButton tipo={'Nuevo Gasto'} />
