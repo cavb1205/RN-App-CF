@@ -8,6 +8,8 @@ import AuthProvider from '../../context/AuthContext'
 import ClientesProvider from '../../context/ClientesContext'
 import { NavigationContainer } from '@react-navigation/native'
 import GastosProvider from '../../context/GastosContext'
+import VentasProvider from '../../context/VentasContext'
+import RecaudosProvider from '../../context/RecaudosContext'
 const Main = () => {
   return (
     <SafeAreaView style={tw`flex-1`}>
@@ -16,7 +18,11 @@ const Main = () => {
         <NavigationContainer>
           <ClientesProvider>
             <GastosProvider>
-              <Navigation />
+              <VentasProvider>
+                <RecaudosProvider>
+                <Navigation />
+                </RecaudosProvider>
+              </VentasProvider>
             </GastosProvider>
           </ClientesProvider>
         </NavigationContainer>

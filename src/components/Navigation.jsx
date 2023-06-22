@@ -10,6 +10,7 @@ import RecaudosList from './Recaudos/RecaudosList'
 import VentasList from './Ventas/VentasList'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import ClientUpdate from './Clientes/ClientUpdate'
+import VentaDetail from './Ventas/VentaDetail'
 
 const Tab = createDrawerNavigator()
 const Stack = createNativeStackNavigator()
@@ -34,12 +35,22 @@ function GastosStack () {
   )
 }
 
+function VentasStack () {
+  return (
+    <Stack.Navigator initialRouteName="Lista">
+      <Stack.Screen name="Lista" component={VentasList} />
+      <Stack.Screen name="Detalle" component={VentaDetail} />
+      <Stack.Screen name="Pagos" component={RecaudosList} />
+    </Stack.Navigator>
+  )
+}
+
 function MyMenu () {
   return (
-    <Tab.Navigator initialRouteName='Gastos'>
+    <Tab.Navigator initialRouteName='Ventas'>
       <Tab.Screen name="Gastos" component={GastosStack} />
       <Tab.Screen name="Recaudos" component={RecaudosList} />
-      <Tab.Screen name="Ventas" component={VentasList} />
+      <Tab.Screen name="Ventas" component={VentasStack} />
       <Tab.Screen name="Clientes" component={ClientStack} />
     </Tab.Navigator>
   )
