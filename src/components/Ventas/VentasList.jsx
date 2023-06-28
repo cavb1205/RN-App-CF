@@ -21,7 +21,7 @@ const VentasList = () => {
   const filteredList = filterList(ventasActivas, 'ventas')
   return (
     <View style={tw`flex-1 py-2`}>
-      <CreateButton tipo={'Nuevo Gasto'} />
+      <CreateButton tipo={'Nueva Venta'} />
       <View>
         <Search />
       </View>
@@ -35,7 +35,7 @@ const VentasList = () => {
           <FlatList
             data={filteredList}
             renderItem={({ item }) => <VentaItem item={item} />}
-            keyExtractor={(cliente) => cliente.id}
+            keyExtractor={(venta) => venta.id}
           />
               )
             : (

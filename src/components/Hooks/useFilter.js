@@ -26,6 +26,7 @@ export const useFilter = () => {
   }
 
   const filterLiquidar = (listItems) => {
+    if (listItems.message) return []
     return listItems.filter((item) =>
       item.cliente?.nombres.toLowerCase().includes(query.toLowerCase()) ||
         item.cliente?.apellidos.toLowerCase().includes(query.toLowerCase())

@@ -2,7 +2,6 @@ import React, { createContext, useContext, useState } from 'react'
 import { AuthContext } from './AuthContext'
 import { URL, TOKEN } from '../config'
 import { useNavigation } from '@react-navigation/native'
-
 import { createUtcDateIso } from '../src/components/Hooks/useDate'
 
 const VentasProvider = ({ children }) => {
@@ -17,17 +16,6 @@ const VentasProvider = ({ children }) => {
   const [loading, setLoading] = useState(false)
 
   const navigation = useNavigation()
-
-  const [newVenta, setNewVenta] = useState({
-    fecha_venta: createUtcDateIso(),
-    valor_venta: '',
-    interes: 20,
-    cuotas: 20,
-    comentario: '',
-    cliente: '',
-    fecha_vencimiento: '',
-    saldo_actual: ''
-  })
 
   const getVentasFecha = async (fecha, tiendaId = null) => {
     try {
@@ -79,18 +67,17 @@ const VentasProvider = ({ children }) => {
     }
   }
 
+  const [date, setDate] = useState(createUtcDateIso())
   const getVentasLiquidar = async (date, tiendaId = null) => {
     try {
       setLoading(true)
-      let fullUrl = `${URL}/ventas/activas/liquidar/${date}/`
-      if (tiendaId) {
-        fullUrl = `${URL}/ventas/activas/liquidar/${date}/t/${tiendaId}/`
-      }
+      const fullUrl = `${URL}/ventas/activas/liquidar/${date}/`
+
       const response = await fetch(fullUrl, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${TOKEN}`
         }
       })
       const data = await response.json()
@@ -105,7 +92,7 @@ const VentasProvider = ({ children }) => {
     }
   }
 
-  const ventasCreateItem = async (tiendaId = null) => {
+  const ventasCreateItem = async (venta) => {
     try {
       setLoading(true)
       const fullUrl = `${URL}/ventas/create/`
@@ -116,11 +103,12 @@ const VentasProvider = ({ children }) => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${TOKEN}`
         },
-        body: JSON.stringify(newVenta)
+        body: JSON.stringify(venta)
       })
       if (response.status === 200) {
         getVentasActivas()
         navigation.goBack()
+        alert('Venta creada correctamente!')
       } else if (response.statusText === 'Unauthorized') {
         logoutUser()
       }
@@ -152,28 +140,6 @@ const VentasProvider = ({ children }) => {
     }
   }
 
-  const handleChange = (event) => {
-    const { name, value } = event.target
-    setNewVenta({
-      ...newVenta,
-      [name]: value
-    })
-  }
-
-  const handleChangeUpdate = (event) => {
-    const { name, value } = event.target
-    setVentaDetail({
-      ...ventaDetail,
-      [name]: value
-    })
-  }
-
-  const [query, setQuery] = useState('')
-
-  const handleSearch = (event) => {
-    setQuery(event.target.value.toLowerCase())
-  }
-
   const totalRecaudar = () => {
     if (ventas.message) {
       return 0
@@ -185,8 +151,6 @@ const VentasProvider = ({ children }) => {
   }
 
   const contextData = {
-    newVenta,
-    setNewVenta,
     allVentas,
     ventas,
     ventaDetail,
@@ -195,15 +159,12 @@ const VentasProvider = ({ children }) => {
     ventasCreateItem,
     getVenta,
     totalRecaudar,
-    handleChange,
-    handleChangeUpdate,
-    handleSearch,
 
     ventasActivas,
     getVentasActivas,
     loading,
-
-    query
+    date,
+    setDate
   }
 
   return (

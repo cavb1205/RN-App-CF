@@ -11,6 +11,8 @@ import VentasList from './Ventas/VentasList'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import ClientUpdate from './Clientes/ClientUpdate'
 import VentaDetail from './Ventas/VentaDetail'
+import VentaCreate from './Ventas/VentaCreate'
+import LiquidarVentasList from './Ventas/LiquidarVentasList'
 
 const Tab = createDrawerNavigator()
 const Stack = createNativeStackNavigator()
@@ -39,6 +41,7 @@ function VentasStack () {
   return (
     <Stack.Navigator initialRouteName="Lista">
       <Stack.Screen name="Lista" component={VentasList} />
+      <Stack.Screen name="Nueva Venta" component={VentaCreate} />
       <Stack.Screen name="Detalle" component={VentaDetail} />
       <Stack.Screen name="Pagos" component={RecaudosList} />
     </Stack.Navigator>
@@ -47,10 +50,11 @@ function VentasStack () {
 
 function MyMenu () {
   return (
-    <Tab.Navigator initialRouteName='Ventas'>
+    <Tab.Navigator initialRouteName='Liquidar Ventas'>
       <Tab.Screen name="Gastos" component={GastosStack} />
       <Tab.Screen name="Recaudos" component={RecaudosList} />
       <Tab.Screen name="Ventas" component={VentasStack} />
+      <Tab.Screen name="Liquidar Ventas" component={LiquidarVentasList} />
       <Tab.Screen name="Clientes" component={ClientStack} />
     </Tab.Navigator>
   )

@@ -6,7 +6,6 @@ import tw from 'twrnc'
 const CreateButton = ({ tipo }) => {
   const navigation = useNavigation()
   const handleCreate = () => {
-    console.log(tipo)
     navigation.navigate(tipo)
   }
   return (

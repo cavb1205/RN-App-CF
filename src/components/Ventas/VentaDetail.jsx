@@ -156,7 +156,7 @@ const VentaDetail = () => {
           <View style={tw`flex-row justify-between mb-3`}>
             <Text style={tw`font-extrabold text-gray-700`}>Total Abonado</Text>
             <Text style={tw`font-extrabold text-green-700`}>
-              {ventaDetail.saldo_actual}
+              {ventaDetail.total_abonado}
             </Text>
           </View>
           <TouchableOpacity

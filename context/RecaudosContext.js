@@ -10,7 +10,7 @@ const RecaudosProvider = ({ children }) => {
 
   const [recaudos, setRecaudos] = useState([])
   const [recaudo, setRecaudo] = useState({})
-
+  const [recaudosFecha, setRecaudosFecha] = useState([])
   const [loading, setLoading] = useState(false)
 
   const [liquidarDate, setLiquidarDate] = useState({
@@ -118,13 +118,13 @@ const RecaudosProvider = ({ children }) => {
       })
       const data = await response.json()
       if (response.status === 200) {
-        setRecaudos(data)
+        setRecaudosFecha(data)
         setLoading(false)
-      } else if (response.statusText == 'Unauthorized') {
+      } else if (response.statusText === 'Unauthorized') {
         logoutUser()
       }
     } catch (error) {
-      console.error(error)
+      alert('Error al cargar los recaudos')
       setLoading(false)
     }
   }
@@ -222,11 +222,11 @@ const RecaudosProvider = ({ children }) => {
   }
 
   const totalRecaudosFecha = () => {
-    if (recaudos.message) {
+    if (recaudosFecha.message) {
       return 0
     } else {
       // liquidarDate
-      return recaudos
+      return recaudosFecha
         .map((recaudo) => parseFloat(recaudo.valor_recaudo))
         .reduce((a, b) => a + b, 0)
     }

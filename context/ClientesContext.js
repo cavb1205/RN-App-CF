@@ -51,15 +51,13 @@ const ClientesProvider = ({ children }) => {
   const getClientesActivos = async (tiendaId = null) => {
     try {
       setLoading(true)
-      let fullUrl = `${URL}/clientes/activos/`
-      if (tiendaId) {
-        fullUrl = `${URL}/clientes/activos/t/${tiendaId}/`
-      }
+      const fullUrl = `${URL}/clientes/activos/`
+
       const response = await fetch(fullUrl, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${TOKEN}`
         }
       })
       const data = await response.json()
