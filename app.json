@@ -21,10 +21,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.cavb1205.sellsystem"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "485e3af5-8026-43fb-a9a0-5ab38346c3dd"
+      }
+    },
+    "owner": "cavb1205"
   }
 }

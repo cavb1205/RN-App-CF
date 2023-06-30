@@ -15,7 +15,7 @@ import LiquidarVentasItem from './LiquidarVentasItem'
 import LiquidarVentasHeader from '../Recaudos/LiquidarVentasHeader'
 
 const LiquidarVentasList = () => {
-  const { loading, getRecaudosFecha } = useContext(RecaudosContext)
+  const { loading, getRecaudosFecha, newRecaudo } = useContext(RecaudosContext)
   const {
     ventas,
     getVentasLiquidar,
@@ -30,7 +30,7 @@ const LiquidarVentasList = () => {
     getVentasLiquidar(date)
     getRecaudosFecha(date)
     getVentasActivas()
-  }, [date])
+  }, [date, newRecaudo])
 
   return (
     <View style={tw`flex-1 py-2`}>

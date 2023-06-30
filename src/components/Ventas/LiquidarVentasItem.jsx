@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import tw from 'twrnc'
+import { RecaudosContext } from '../../../context/RecaudosContext'
 
 const LiquidarVentasItem = ({ item }) => {
+  const { selectedNoPago, SelectedRecaudo } = useContext(RecaudosContext)
   const styleEstado = () => {
     switch (item.estado_venta) {
       case 'Vigente':
@@ -15,9 +17,9 @@ const LiquidarVentasItem = ({ item }) => {
         return 'bg-green-600'
     }
   }
-  console.log(item)
+
   return (
-    <View style={tw`bg-gray-50 p-2 mx-4 my-2 rounded-xl shadow-lg `}>
+    <View style={tw`bg-gray-50 p-2 mx-4 my-1 rounded-xl shadow-lg `}>
       <View style={tw`justify-center flex-row gap-3 items-center flex-wrap `}>
         <Text style={tw`text-center text-black/60 text-xl font-bold `}>
           {item.cliente?.nombres} {item.cliente?.apellidos}
@@ -59,12 +61,14 @@ const LiquidarVentasItem = ({ item }) => {
       </View>
       <View style={tw`flex flex-row justify-evenly m-2`}>
         <TouchableOpacity
-          //   onPress={() => handleDetail(item.id)}
+          onPress={() => selectedNoPago(item)}
           style={tw`bg-red-500 p-2 rounded-xl shadow-md w-30`}
         >
           <Text style={tw`text-center text-gray-50 font-extrabold text-lg`}>No Pagó</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={tw`bg-green-700 p-2 rounded-xl shadow-md w-30`}>
+        <TouchableOpacity style={tw`bg-green-700 p-2 rounded-xl shadow-md w-30`}
+        onPress={() => SelectedRecaudo(item)}
+        >
           <Text style={tw`text-center text-gray-50 font-extrabold text-lg`}>Abonar</Text>
         </TouchableOpacity>
       </View>
