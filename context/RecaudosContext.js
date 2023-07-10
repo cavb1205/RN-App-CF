@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react'
 import { AuthContext } from './AuthContext'
-import { URL, TOKEN } from '../config'
+import { URL } from '../config'
 import { createUtcDateIso } from '../src/components/Hooks/useDate'
 import { useNavigation } from '@react-navigation/native'
 import { VentasContext } from './VentasContext'
@@ -36,7 +36,7 @@ const RecaudosProvider = ({ children }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${TOKEN}`
+          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(newRecaudo)
       })
@@ -63,7 +63,7 @@ const RecaudosProvider = ({ children }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${TOKEN}`
+          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(noPago)
       })
@@ -87,7 +87,7 @@ const RecaudosProvider = ({ children }) => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${TOKEN}`
+          Authorization: `Bearer ${token}`
         }
       })
       const data = await response.json()
@@ -110,14 +110,12 @@ const RecaudosProvider = ({ children }) => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${TOKEN}`
+          Authorization: `Bearer ${token}`
         }
       })
       const data = await response.json()
       if (response.status === 200) {
         setRecaudosFecha(data)
-        console.log('response 200 OK')
-        console.log(data)
         setLoading(false)
       } else if (response.statusText === 'Unauthorized') {
         logoutUser()

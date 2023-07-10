@@ -1,7 +1,8 @@
 import React, { createContext, useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-native'
+
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { URL } from '../config'
+import { useNavigation } from '@react-navigation/native'
 
 export const AuthContext = createContext()
 
@@ -14,7 +15,7 @@ const AuthProvider = ({ children }) => {
   const [error, setError] = useState(false)
   const [membresia, setMembresia] = useState(null)
 
-  const navigate = useNavigate()
+  const navigation = useNavigation()
 
   const loginUser = async (username, password) => {
     const response = await fetch(`${URL}/login/`, {
@@ -39,7 +40,7 @@ const AuthProvider = ({ children }) => {
       await AsyncStorage.setItem('user', JSON.stringify(data.user))
       await AsyncStorage.setItem('perfil', JSON.stringify(data.perfil))
 
-      navigate('/liquidar/')
+      navigation.navigate('Liquidar Ventas')
     }
   }
   const logoutUser = async () => {
@@ -47,10 +48,11 @@ const AuthProvider = ({ children }) => {
     setToken(null)
     setRefresh(null)
     setUser(null)
+    setPerfil(null)
     await AsyncStorage.removeItem('token')
     await AsyncStorage.removeItem('refresh')
     await AsyncStorage.removeItem('user')
-    navigate('/login/')
+    await AsyncStorage.removeItem('perfil')
   }
 
   const updateToken = async () => {
@@ -86,7 +88,6 @@ const AuthProvider = ({ children }) => {
     token,
     refresh,
     user,
-    navigate,
     error,
     query,
     handleSearch,
@@ -105,7 +106,7 @@ const AuthProvider = ({ children }) => {
       if (token) {
         updateToken()
       } else {
-        navigate('/login/')
+        // navigation.navigate('Login')
       }
     }, calcTime)
     return () => clearInterval(interval)

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import ClientsList from './Clientes/ClientsList'
 import ClientDetail from './Clientes/ClientDetail'
 import ClientCreate from './Clientes/ClientCreate'
@@ -16,6 +16,11 @@ import LiquidarVentasList from './Ventas/LiquidarVentasList'
 import RecaudosNoPago from './Recaudos/RecaudosNoPago'
 import RecaudosCreate from './Recaudos/RecaudosCreate'
 import InformeRecaudosFecha from './Recaudos/InformeRecaudosFecha'
+
+import Login from './Login'
+import { AuthContext } from '../../context/AuthContext'
+import { Logout } from './Logout'
+import Profile from './Trabajador/Profile'
 
 const Tab = createDrawerNavigator()
 const Stack = createNativeStackNavigator()
@@ -54,25 +59,48 @@ function VentasStack () {
 function LiquidarStack () {
   return (
     <Stack.Navigator initialRouteName="Lista">
-      <Stack.Screen name="Lista" component={LiquidarVentasList} />
+      <Stack.Screen
+        name="Lista"
+        component={LiquidarVentasList}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen name="No Pago" component={RecaudosNoPago} />
       <Stack.Screen name="Abono" component={RecaudosCreate} />
     </Stack.Navigator>
   )
 }
 
-function MyMenu () {
+function MyMenu ({ perfil, logoutUser }) {
   return (
-    <Tab.Navigator initialRouteName='Liquidar Ventas'>
-      <Tab.Screen name="Gastos" component={GastosStack} />
-      <Tab.Screen name="Informe Recaudos" component={InformeRecaudosFecha} />
-      <Tab.Screen name="Ventas" component={VentasStack} />
-      <Tab.Screen name="Liquidar Ventas" component={LiquidarStack} />
-      <Tab.Screen name="Clientes" component={ClientStack} />
+    <Tab.Navigator initialRouteName="Login">
+      {perfil
+        ? (
+        <>
+          <Tab.Screen name="Gastos" component={GastosStack} />
+          <Tab.Screen
+            name="Informe Recaudos"
+            component={InformeRecaudosFecha}
+          />
+          <Tab.Screen name="Ventas" component={VentasStack} />
+          <Tab.Screen name="Liquidar Ventas" component={LiquidarStack} />
+          <Tab.Screen name="Clientes" component={ClientStack} />
+          <Tab.Screen name={'Trabajador'} component={Profile} />
+        </>
+          )
+        : null}
+      {perfil === null
+        ? (
+        <Tab.Screen name="Login" component={Login} />
+          )
+        : (
+        <Tab.Screen name="Logout" component={Logout} />
+          )}
     </Tab.Navigator>
   )
 }
 
 export default function Navigation () {
-  return <MyMenu />
+  const { perfil, logoutUser } = useContext(AuthContext)
+
+  return <MyMenu perfil={perfil} logoutUser={logoutUser} />
 }

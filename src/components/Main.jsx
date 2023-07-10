@@ -14,19 +14,19 @@ const Main = () => {
   return (
     <SafeAreaView style={tw`flex-1`}>
       <StatusBar />
-      <AuthProvider>
-        <NavigationContainer>
+      <NavigationContainer>
+        <AuthProvider>
           <ClientesProvider>
             <GastosProvider>
               <VentasProvider>
                 <RecaudosProvider>
-                <Navigation />
+                  <Navigation />
                 </RecaudosProvider>
               </VentasProvider>
             </GastosProvider>
           </ClientesProvider>
-        </NavigationContainer>
-      </AuthProvider>
+        </AuthProvider>
+      </NavigationContainer>
     </SafeAreaView>
   )
 }

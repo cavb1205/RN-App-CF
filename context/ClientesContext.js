@@ -2,7 +2,7 @@ import React, { createContext, useState, useContext } from 'react'
 
 import { AuthContext } from './AuthContext'
 
-import { URL, TOKEN } from '../config'
+import { URL } from '../config'
 import { useNavigation } from '@react-navigation/native'
 export const ClientesContext = createContext()
 
@@ -31,7 +31,7 @@ const ClientesProvider = ({ children }) => {
         headers: {
           'Content-Type': 'application/json',
           // Authorization: `Bearer ${token}`
-          Authorization: `Bearer ${TOKEN}`
+          Authorization: `Bearer ${token}`
         }
       })
       const data = await response.json()
@@ -57,7 +57,7 @@ const ClientesProvider = ({ children }) => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${TOKEN}`
+          Authorization: `Bearer ${token}`
         }
       })
       const data = await response.json()
@@ -81,7 +81,7 @@ const ClientesProvider = ({ children }) => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${TOKEN}`
+          Authorization: `Bearer ${token}`
         }
       })
       const data = await response.json()
@@ -109,7 +109,7 @@ const ClientesProvider = ({ children }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${TOKEN}`
+          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(cliente)
       })
@@ -136,7 +136,7 @@ const ClientesProvider = ({ children }) => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${TOKEN}`
+          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(cliente)
       })
@@ -191,11 +191,9 @@ const ClientesProvider = ({ children }) => {
   const contextData = {
     clientes,
     cliente,
-
     getClientes,
     getCliente,
     clienteUpdateItem,
-
     clienteCreateItem,
     getVentasActivasCliente,
     ventasActivas,
@@ -204,7 +202,6 @@ const ClientesProvider = ({ children }) => {
     error,
     loading,
     handleChangeUpdate
-
   }
 
   return (

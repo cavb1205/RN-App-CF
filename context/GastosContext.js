@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react'
 import { AuthContext } from './AuthContext'
-import { URL, TOKEN } from '../config'
+import { URL } from '../config'
 import { useNavigation } from '@react-navigation/native'
 
 const GastosProvider = ({ children }) => {
@@ -20,7 +20,7 @@ const GastosProvider = ({ children }) => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${TOKEN}`
+          Authorization: `Bearer ${token}`
         }
       })
       const data = await response.json()
@@ -40,7 +40,7 @@ const GastosProvider = ({ children }) => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${TOKEN}`
+        Authorization: `Bearer ${token}`
       }
     })
     const data = await response.json()
@@ -59,7 +59,7 @@ const GastosProvider = ({ children }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${TOKEN}`
+          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(newGasto)
       })
@@ -72,7 +72,8 @@ const GastosProvider = ({ children }) => {
         logoutUser()
       }
     } catch (error) {
-      console.error(error)
+      alert('Error al cargar los datos, intente de nuevo!')
+      setLoading(false)
     }
   }
 

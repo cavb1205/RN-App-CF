@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react'
 import { AuthContext } from './AuthContext'
-import { URL, TOKEN } from '../config'
+import { URL } from '../config'
 import { useNavigation } from '@react-navigation/native'
 import { createUtcDateIso } from '../src/components/Hooks/useDate'
 
@@ -52,7 +52,7 @@ const VentasProvider = ({ children }) => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${TOKEN}`
+          Authorization: `Bearer ${token}`
         }
       })
       const data = await response.json()
@@ -77,7 +77,7 @@ const VentasProvider = ({ children }) => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${TOKEN}`
+          Authorization: `Bearer ${token}`
         }
       })
       const data = await response.json()
@@ -101,7 +101,7 @@ const VentasProvider = ({ children }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${TOKEN}`
+          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(venta)
       })
@@ -124,7 +124,7 @@ const VentasProvider = ({ children }) => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${TOKEN}`
+          Authorization: `Bearer ${token}`
         }
       })
       const data = await response.json()

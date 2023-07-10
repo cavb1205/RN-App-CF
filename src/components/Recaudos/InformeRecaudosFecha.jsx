@@ -4,9 +4,10 @@ import LoadingList from '../Utils/LoadingList'
 import AlertMessage from '../Utils/AlertMessage'
 import tw from 'twrnc'
 import { RecaudosContext } from '../../../context/RecaudosContext'
-import RecaudosItem from './RecaudosItem'
+
 import { VentasContext } from '../../../context/VentasContext'
 import DateSelect from '../Utils/DateSelect'
+import InformeRecaudosItem from './InformeRecaudosItem'
 
 const InformeRecaudosFecha = () => {
   const { loading, getRecaudosFecha, recaudosFecha, totalRecaudosFecha } =
@@ -51,7 +52,7 @@ const InformeRecaudosFecha = () => {
           <FlatList
             data={recaudosFecha}
             renderItem={({ item, index }) => (
-              <RecaudosItem index={index} item={item} />
+              <InformeRecaudosItem index={index} item={item} />
             )}
             keyExtractor={(recaudo) => recaudo.id}
           />
