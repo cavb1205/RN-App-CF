@@ -22,13 +22,20 @@ import { AuthContext } from '../../context/AuthContext'
 import { Logout } from './Logout'
 import Profile from './Trabajador/Profile'
 
+import Caja from './Caja/Caja'
+import CierreCaja from './Caja/CierreCaja'
+
 const Tab = createDrawerNavigator()
 const Stack = createNativeStackNavigator()
 
 function ClientStack () {
   return (
     <Stack.Navigator initialRouteName="Lista">
-      <Stack.Screen name="Lista" component={ClientsList} />
+      <Stack.Screen
+        name="Lista"
+        component={ClientsList}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen name="Detalle" component={ClientDetail} />
       <Stack.Screen name="Nuevo Cliente" component={ClientCreate} />
       <Stack.Screen name="Editar" component={ClientUpdate} />
@@ -39,7 +46,11 @@ function ClientStack () {
 function GastosStack () {
   return (
     <Stack.Navigator initialRouteName="Lista">
-      <Stack.Screen name="Lista" component={GastosList} />
+      <Stack.Screen
+        name="Lista"
+        component={GastosList}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen name="Nuevo Gasto" component={GastosCreate} />
     </Stack.Navigator>
   )
@@ -48,7 +59,11 @@ function GastosStack () {
 function VentasStack () {
   return (
     <Stack.Navigator initialRouteName="Lista">
-      <Stack.Screen name="Lista" component={VentasList} />
+      <Stack.Screen
+        name="Lista"
+        component={VentasList}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen name="Nueva Venta" component={VentaCreate} />
       <Stack.Screen name="Detalle" component={VentaDetail} />
       <Stack.Screen name="Pagos" component={RecaudosList} />
@@ -70,12 +85,26 @@ function LiquidarStack () {
   )
 }
 
+function CajaStack () {
+  return (
+    <Stack.Navigator initialRouteName="Caja Ruta">
+      <Stack.Screen
+        name="Caja Ruta"
+        component={Caja}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen name="Cierre Caja" component={CierreCaja} />
+    </Stack.Navigator>
+  )
+}
+
 function MyMenu ({ perfil, logoutUser }) {
   return (
     <Tab.Navigator initialRouteName="Login">
       {perfil
         ? (
         <>
+          <Tab.Screen name={'Caja'} component={CajaStack} />
           <Tab.Screen name="Gastos" component={GastosStack} />
           <Tab.Screen
             name="Informe Recaudos"

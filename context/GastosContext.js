@@ -77,13 +77,91 @@ const GastosProvider = ({ children }) => {
     }
   }
 
+  const getGastosFecha = async (fecha) => {
+    try {
+      setLoading(true)
+      const fullUrl = `${URL}/gastos/list/${fecha}/`
+
+      const response = await fetch(fullUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      })
+      const data = await response.json()
+      if (response.status === 200) {
+        setGastos(data)
+        setLoading(false)
+      } else if (response.statusText === 'Unauthorized') {
+        logoutUser()
+      }
+    } catch {
+      setLoading(false)
+      alert('Error al cargar los datos, intente de nuevo!')
+    }
+  }
+
+  const [aportes, setAportes] = useState([])
+  const getAportesFecha = async (fecha) => {
+    try {
+      const fullUrl = `${URL}/aportes/list/${fecha}/`
+
+      const response = await fetch(fullUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      })
+
+      const data = await response.json()
+
+      if (response.status === 200) {
+        setAportes(data)
+      } else if (response.statusText === 'Unauthorized') {
+        logoutUser()
+      }
+    } catch {
+      alert('Error al cargar los datos, intente de nuevo!')
+    }
+  }
+
+  const [utilidades, setUtilidades] = useState([])
+  const getUtilidadesFecha = async (fecha) => {
+    try {
+      const fullUrl = `${URL}/utilidades/list/${fecha}/`
+
+      const response = await fetch(fullUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      })
+      const data = await response.json()
+      if (response.status === 200) {
+        setUtilidades(data)
+      } else if (response.statusText === 'Unauthorized') {
+        logoutUser()
+      }
+    } catch {
+      alert('Error al cargar los datos, intente de nuevo!')
+    }
+  }
+
   const contextData = {
     gastos,
     getGastos,
     gastoCreateItem,
     loading,
     getTipoGastos,
-    tipoGastos
+    tipoGastos,
+    getAportesFecha,
+    aportes,
+    getUtilidadesFecha,
+    utilidades,
+    getGastosFecha
   }
 
   return (

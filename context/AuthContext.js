@@ -29,6 +29,7 @@ const AuthProvider = ({ children }) => {
       })
     })
     const data = await response.json()
+
     if (response.status === 200) {
       setToken(data.token)
       setRefresh(data.refresh)
@@ -42,6 +43,8 @@ const AuthProvider = ({ children }) => {
       await AsyncStorage.setItem('perfil', JSON.stringify(data.perfil))
 
       navigation.navigate('Liquidar Ventas')
+    } else {
+      alert('Usuario o contraseña incorrectos')
     }
   }
   const logoutUser = async () => {
@@ -77,6 +80,65 @@ const AuthProvider = ({ children }) => {
     }
   }
 
+  const [tienda, setTienda] = useState({})
+  const getTiendaMembresia = async () => {
+    setLoading(true)
+    const response = await fetch(`${URL}/tiendas/detail/`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    })
+    const data = await response.json()
+    if (response.status === 200) {
+      setTienda(data)
+      setLoading(false)
+    } else if (response.statusText === 'Unauthorized') {
+      logoutUser()
+    }
+  }
+
+  const [cajaAnterior, setCajaAnterior] = useState({})
+  const getCierreCaja = async (fecha) => {
+    setLoading(true)
+    const fullUrl = `${URL}/tiendas/cierre/${fecha}/`
+    const response = await fetch(fullUrl, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    })
+    const data = await response.json()
+    if (response.status === 200) {
+      setCajaAnterior(data)
+      setLoading(false)
+    } else if (response.statusText === 'Unauthorized') {
+      logoutUser()
+    }
+  }
+
+  const postCierreCaja = async (fecha) => {
+    setLoading(true)
+    const fullUrl = `${URL}/tiendas/cierre/post/${fecha}/`
+
+    const response = await fetch(fullUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    })
+    if (response.status === 200) {
+      setLoading(false)
+      alert('Cierre de Caja Exitoso')
+      navigation.navigate('Caja Ruta')
+    } else if (response.statusText === 'Unauthorized') {
+      logoutUser()
+    }
+  }
+
   const [query, setQuery] = useState('')
 
   const handleSearch = (event) => {
@@ -94,7 +156,12 @@ const AuthProvider = ({ children }) => {
     handleSearch,
     setQuery,
     perfil,
-    membresia
+    membresia,
+    getTiendaMembresia,
+    tienda,
+    cajaAnterior,
+    getCierreCaja,
+    postCierreCaja
   }
 
   useEffect(() => {
