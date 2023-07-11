@@ -38,6 +38,7 @@ const AuthProvider = ({ children }) => {
       await AsyncStorage.setItem('token', JSON.stringify(data.token))
       await AsyncStorage.setItem('refresh', JSON.stringify(data.refresh))
       await AsyncStorage.setItem('user', JSON.stringify(data.user))
+      await AsyncStorage.setItem('userName', JSON.stringify(data.user.username))
       await AsyncStorage.setItem('perfil', JSON.stringify(data.perfil))
 
       navigation.navigate('Liquidar Ventas')

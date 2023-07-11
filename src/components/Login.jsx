@@ -1,7 +1,8 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { TextInput, TouchableOpacity, View, Text } from 'react-native'
 import tw from 'twrnc'
 import { AuthContext } from '../../context/AuthContext'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Login = () => {
   const { loginUser } = useContext(AuthContext)
@@ -12,13 +13,28 @@ const Login = () => {
     loginUser(userName, password)
   }
 
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        let value = await AsyncStorage.getItem('userName')
+        value = JSON.parse(value)
+        if (value !== null) {
+          setUserName(value)
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    getData()
+  }, [])
+
   return (
     <View>
       <View style={tw`bg-gray-100 my-auto p-10 mt-30 mx-5 rounded-xl shadow-xl`}>
         <Text style={tw`text-gray-500 text-center text-2xl font-bold`}>
           Ingreso al Sistemas
         </Text>
-        <Text style={tw`text-center`}>{userName}</Text>
+
         <TextInput
           style={tw`m-3 border-sky-200 border rounded-xl p-2`}
           placeholder="Usuario"
