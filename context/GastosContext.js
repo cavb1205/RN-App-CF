@@ -8,6 +8,7 @@ const GastosProvider = ({ children }) => {
   const { token, logoutUser } = useContext(AuthContext)
 
   const [gastos, setGastos] = useState([])
+  const [gastosFecha, setGastosFecha] = useState([])
   const [tipoGastos, setTipoGastos] = useState([])
 
   const [loading, setLoading] = useState(false)
@@ -32,6 +33,7 @@ const GastosProvider = ({ children }) => {
       }
     } catch {
       setLoading(false)
+      alert('Error al cargar los gastos, intente de nuevo!')
     }
   }
 
@@ -72,14 +74,13 @@ const GastosProvider = ({ children }) => {
         logoutUser()
       }
     } catch (error) {
-      alert('Error al cargar los datos, intente de nuevo!')
+      alert('Error al cargar los gastos, intente de nuevo!')
       setLoading(false)
     }
   }
 
   const getGastosFecha = async (fecha) => {
     try {
-      setLoading(true)
       const fullUrl = `${URL}/gastos/list/${fecha}/`
 
       const response = await fetch(fullUrl, {
@@ -91,14 +92,13 @@ const GastosProvider = ({ children }) => {
       })
       const data = await response.json()
       if (response.status === 200) {
-        setGastos(data)
+        setGastosFecha(data)
         setLoading(false)
       } else if (response.statusText === 'Unauthorized') {
         logoutUser()
       }
     } catch {
-      setLoading(false)
-      alert('Error al cargar los datos, intente de nuevo!')
+      alert('Error al cargar los gastos, intente de nuevo!')
     }
   }
 
@@ -123,7 +123,7 @@ const GastosProvider = ({ children }) => {
         logoutUser()
       }
     } catch {
-      alert('Error al cargar los datos, intente de nuevo!')
+      alert('Error al cargar los Aportes, intente de nuevo!')
     }
   }
 
@@ -146,12 +146,13 @@ const GastosProvider = ({ children }) => {
         logoutUser()
       }
     } catch {
-      alert('Error al cargar los datos, intente de nuevo!')
+      alert('Error al cargar las utilidades, intente de nuevo!')
     }
   }
 
   const contextData = {
     gastos,
+    gastosFecha,
     getGastos,
     gastoCreateItem,
     loading,

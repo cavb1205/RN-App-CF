@@ -17,7 +17,7 @@ const CierreCaja = () => {
   const { getVentasFecha, allVentas, date } = useContext(VentasContext)
   const {
     getGastosFecha,
-    gastos,
+    gastosFecha,
     getAportesFecha,
     aportes,
     getUtilidadesFecha,
@@ -40,7 +40,7 @@ const CierreCaja = () => {
       itemsDia(aportes, 'aportes', date) +
       itemsDia(recaudosFecha, 'recaudos', date) -
       itemsDia(allVentas, 'ventasNetas', date) -
-      itemsDia(gastos, 'gastos', date) -
+      itemsDia(gastosFecha, 'gastos', date) -
       itemsDia(utilidades, 'utilidades', date)
     )
   }
@@ -114,7 +114,7 @@ const CierreCaja = () => {
           </Text>
           <Text style={tw`text-red-700 font-semibold text-lg`}>
             {' '}
-            {itemsDia(gastos, 'gastos', date)}
+            {itemsDia(gastosFecha, 'gastos', date)}
           </Text>
         </View>
         <View style={tw`flex flex-row justify-between mb-2`}>

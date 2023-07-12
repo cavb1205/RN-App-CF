@@ -16,7 +16,7 @@ const ClientUpdate = () => {
   const handleSubmit = () => {
     clienteUpdateItem(cliente)
   }
-  console.log(cliente)
+
   return (
     <View style={tw`bg-gray-50 shadow-xl rounded-xl mx-4 my-auto p-6`}>
         <Text style={tw`text-center text-2xl font-extrabold text-gray-500 mb-3`}>Actualizar Cliente</Text>

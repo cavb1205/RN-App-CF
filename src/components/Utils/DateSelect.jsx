@@ -16,6 +16,7 @@ const DateSelect = () => {
     setShow(false)
     setDate(currentDate.toISOString().slice(0, 10))
   }
+
   return (
     <View style={tw`mx-auto`}>
       <Button title={date + ' ' + '🗓️'} onPress={showDatePicker} />

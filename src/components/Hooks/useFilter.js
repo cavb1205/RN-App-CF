@@ -14,9 +14,7 @@ export const useFilter = () => {
   }
 
   const filterGastos = (listItems) => {
-    return listItems.filter((item) =>
-      item.tipo_gasto?.tipo_gasto.toLowerCase().includes(query.toLowerCase())
-    ).slice(currentPage, currentPage + ITEMS)
+    return listItems.slice(currentPage, currentPage + ITEMS)
   }
   const filterVentas = (listItems) => {
     return listItems.filter((item) =>

@@ -19,8 +19,7 @@ const InformeRecaudosFecha = () => {
   useEffect(() => {
     getRecaudosFecha(date)
   }, [date])
-  console.log(recaudosFecha)
-  console.log(date)
+
   return (
     <View style={tw`flex-1 py-2`}>
       <View style={tw` justify-center flex-row gap-4 flex-wrap`}>

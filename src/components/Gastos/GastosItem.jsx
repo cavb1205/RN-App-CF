@@ -1,14 +1,8 @@
 import React from 'react'
 import { Text, View } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
 import tw from 'twrnc'
 
 const GastosItem = ({ item }) => {
-  const navigation = useNavigation()
-  const handleClientDetail = (clientId) => {
-    navigation.navigate('Detalle', { clienteId: clientId })
-  }
-
   return (
     <View
       style={tw`bg-gray-50 p-2 mx-4 my-2 rounded-xl shadow-lg justify-center`}

@@ -16,7 +16,7 @@ const RecaudosNoPago = () => {
   const handleSubmit = () => {
     recaudosCreateNoPago()
   }
-  console.log(noPago)
+
   return (
     <View style={tw`bg-gray-50 shadow-xl rounded-xl mx-4 my-auto p-6`}>
       <View style={tw` self-center my-3`}>

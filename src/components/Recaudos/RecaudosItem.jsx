@@ -3,7 +3,6 @@ import { Text, View } from 'react-native'
 import tw from 'twrnc'
 
 const RecaudosItem = ({ item, index }) => {
-  console.log(item)
   return (
     <View style={tw`bg-gray-50 p-2 mx-4 my-2 rounded-xl shadow-lg `}>
       <View style={tw`flex-row justify-evenly flex-wrap`}>
