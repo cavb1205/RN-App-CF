@@ -17,7 +17,9 @@ const Login = () => {
     const getData = async () => {
       try {
         let value = await AsyncStorage.getItem('userName')
+
         value = JSON.parse(value)
+
         if (value !== null) {
           setUserName(value)
         }

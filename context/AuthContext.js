@@ -165,6 +165,30 @@ const AuthProvider = ({ children }) => {
   }
 
   useEffect(() => {
+    console.log('useEffect inicio autenticacion recuperar token')
+    const bootstrapAsync = async () => {
+      let userToken
+
+      try {
+        userToken = await AsyncStorage.getItem('token')
+        userToken = JSON.parse(userToken)
+        let userPerfil = await AsyncStorage.getItem('perfil')
+        userPerfil = JSON.parse(userPerfil)
+        setToken(userToken)
+        setPerfil(userPerfil)
+        console.log('token recuperado')
+        console.log(`token: ${token}`)
+        console.log(`perfil: ${perfil}`)
+      } catch (e) {
+        alert('Error al cargar')
+        navigation.navigate('Login')
+      }
+    }
+
+    bootstrapAsync()
+  }, [])
+
+  useEffect(() => {
     if (loading) {
       updateToken()
     }
@@ -174,7 +198,7 @@ const AuthProvider = ({ children }) => {
       if (token) {
         updateToken()
       } else {
-        // navigation.navigate('Login')
+        navigation.navigate('Login')
       }
     }, calcTime)
     return () => clearInterval(interval)
