@@ -79,6 +79,8 @@ function LiquidarStack () {
         component={LiquidarVentasList}
         options={{ headerShown: false }}
       />
+      <Stack.Screen name="Detalle Venta" component={VentaDetail} />
+      <Stack.Screen name="Pagos" component={RecaudosList} />
       <Stack.Screen name="No Pago" component={RecaudosNoPago} />
       <Stack.Screen name="Abono" component={RecaudosCreate} />
     </Stack.Navigator>

@@ -1,9 +1,11 @@
 import React, { useContext } from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, Pressable } from 'react-native'
 import tw from 'twrnc'
 import { RecaudosContext } from '../../../context/RecaudosContext'
+import { useNavigation } from '@react-navigation/native'
 
 const LiquidarVentasItem = ({ item }) => {
+  const navigation = useNavigation()
   const { selectedNoPago, SelectedRecaudo } = useContext(RecaudosContext)
   const styleEstado = () => {
     switch (item.estado_venta) {
@@ -17,9 +19,13 @@ const LiquidarVentasItem = ({ item }) => {
         return 'bg-green-600'
     }
   }
+  const handleDetail = (itemId) => {
+    navigation.navigate('Detalle Venta', { ventaId: itemId })
+  }
 
   return (
     <View style={tw`bg-gray-50 p-2 mx-4 my-1 rounded-xl shadow-lg `}>
+      <Pressable onPress={() => handleDetail(item.id)}>
       <View style={tw`justify-center flex-row gap-3 items-center flex-wrap `}>
         <Text style={tw`text-center text-black/60 text-xl font-bold `}>
           {item.cliente?.nombres} {item.cliente?.apellidos}
@@ -54,6 +60,7 @@ const LiquidarVentasItem = ({ item }) => {
           Abonados: {item.pagos_realizados}
         </Text>
       </View>
+      </Pressable>
       <View style={tw`self-center`}>
         <Text style={tw`font-bold text-sky-600 text-base`}>
           Cuota {item.valor_cuota}
