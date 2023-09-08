@@ -50,6 +50,7 @@ const Login = () => {
           value={password}
           onChangeText={setPassword}
           secureTextEntry={true}
+          keyboardType='numeric'
         />
         <TouchableOpacity style={tw`bg-sky-500 rounded-full p-2 w-50 mx-auto shadow-lg mt-2`} onPress={handleLogin}>
           <Text style={tw`text-white font-bold text-center py-1`}>Ingresar</Text>
