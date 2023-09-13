@@ -3,14 +3,21 @@ import { TextInput, TouchableOpacity, View, Text } from 'react-native'
 import tw from 'twrnc'
 import { AuthContext } from '../../context/AuthContext'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import Loading from '../../src/components/Utils/Loading'
 
 const Login = () => {
-  const { loginUser } = useContext(AuthContext)
+  const { loginUser, loading } = useContext(AuthContext)
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
 
   const handleLogin = () => {
-    loginUser(userName, password)
+    if (userName === '') {
+      alert('Ingrese su usuario')
+    } else if (password === '') {
+      alert('Ingrese su contraseña')
+    } else {
+      loginUser(userName, password)
+    }
   }
 
   useEffect(() => {
@@ -30,9 +37,19 @@ const Login = () => {
     getData()
   }, [])
 
+  if (loading) {
+    return (
+      <View>
+        <Loading />
+      </View>
+    )
+  }
+
   return (
     <View>
-      <View style={tw`bg-gray-100 my-auto p-10 mt-30 mx-5 rounded-xl shadow-xl`}>
+      <View
+        style={tw`bg-gray-100 my-auto p-10 mt-30 mx-5 rounded-xl shadow-xl`}
+      >
         <Text style={tw`text-gray-500 text-center text-2xl font-bold`}>
           Ingreso al Sistemas
         </Text>
@@ -45,15 +62,20 @@ const Login = () => {
         />
 
         <TextInput
-        style={tw`m-3  border-sky-200 border rounded-xl p-2 `}
+          style={tw`m-3  border-sky-200 border rounded-xl p-2 `}
           placeholder="Contraseña"
           value={password}
           onChangeText={setPassword}
           secureTextEntry={true}
-          keyboardType='numeric'
+          keyboardType="numeric"
         />
-        <TouchableOpacity style={tw`bg-sky-500 rounded-full p-2 w-50 mx-auto shadow-lg mt-2`} onPress={handleLogin}>
-          <Text style={tw`text-white font-bold text-center py-1`}>Ingresar</Text>
+        <TouchableOpacity
+          style={tw`bg-sky-500 rounded-full p-2 w-50 mx-auto shadow-lg mt-2`}
+          onPress={handleLogin}
+        >
+          <Text style={tw`text-white font-bold text-center py-1`}>
+            Ingresar
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

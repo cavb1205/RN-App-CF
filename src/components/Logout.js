@@ -12,7 +12,6 @@ export const Logout = () => {
 
   const navigation = useNavigation()
   const handleLogin = () => {
-    console.log('login')
     navigation.navigate('Login')
   }
 

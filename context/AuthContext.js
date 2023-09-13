@@ -18,6 +18,7 @@ const AuthProvider = ({ children }) => {
   const navigation = useNavigation()
 
   const loginUser = async (username, password) => {
+    setLoading(true)
     const response = await fetch(`${URL}/login/`, {
       method: 'POST',
       headers: {
@@ -43,8 +44,10 @@ const AuthProvider = ({ children }) => {
       await AsyncStorage.setItem('perfil', JSON.stringify(data.perfil))
 
       navigation.navigate('Liquidar Ventas')
+      setLoading(false)
     } else {
       alert('Usuario o contraseña incorrectos')
+      setLoading(false)
     }
   }
   const logoutUser = async () => {
@@ -161,7 +164,8 @@ const AuthProvider = ({ children }) => {
     tienda,
     cajaAnterior,
     getCierreCaja,
-    postCierreCaja
+    postCierreCaja,
+    loading
   }
 
   useEffect(() => {

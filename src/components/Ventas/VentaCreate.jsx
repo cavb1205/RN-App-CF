@@ -100,6 +100,8 @@ const VentaCreate = () => {
         </View>
         <View style={tw`m-2`}>
           <TextInput
+            editable={false}
+            selectTextOnFocus={false}
             keyboardType="numeric"
             onChangeText={(text) => handleChange('interes', text)}
             value={venta.interes}

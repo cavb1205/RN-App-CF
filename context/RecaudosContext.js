@@ -47,10 +47,12 @@ const RecaudosProvider = ({ children }) => {
         getVentasLiquidar(date)
         navigation.navigate('Lista')
       } else if (response.statusText === 'Unauthorized') {
+        setLoading(false)
         logoutUser()
       }
     } catch (error) {
       alert('Error al crear el recaudo')
+      setLoading(false)
     }
   }
 
@@ -73,9 +75,11 @@ const RecaudosProvider = ({ children }) => {
         getVentasLiquidar(date)
         navigation.navigate('Lista')
       } else if (response.statusText === 'Unauthorized') {
+        setLoading(false)
         logoutUser()
       }
     } catch (error) {
+      setLoading(false)
       alert('Error al crear el recaudo')
     }
   }
