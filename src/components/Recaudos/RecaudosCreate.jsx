@@ -8,20 +8,27 @@ import Loading from '../Utils/Loading'
 
 const RecaudosCreate = () => {
   const navigation = useNavigation()
-  const { handleChange, venta, newRecaudo, recaudosCreateItem } =
+  const { venta, newRecaudo, recaudosCreateItem, loading } =
     useContext(RecaudosContext)
 
-  const [loading, setLoading] = useState(false)
+  const [recaudo, setRecaudo] = useState(newRecaudo)
+
+  const handleChange = (name, value) => {
+    setRecaudo({
+      ...recaudo,
+      [name]: value
+    })
+  }
 
   const handleSubmit = () => {
-    if (newRecaudo.valor_recaudo === '') {
+    if (recaudo.valor_recaudo === '') {
       alert('El valor del abono no puede estar vacio')
     } else {
-      setLoading(true)
-      recaudosCreateItem()
+      recaudosCreateItem(recaudo)
     }
   }
 
+  console.log(loading)
   return (
     <View style={tw`bg-gray-50 shadow-xl rounded-xl mx-4 my-auto p-6`}>
       <View style={tw` self-center my-3`}>
@@ -35,11 +42,11 @@ const RecaudosCreate = () => {
         <>
           <View style={tw`mb-2`}>
             <Text style={tw`text-lg font-semibold text-center text-blue-600`}>
-              Fecha Abono: {newRecaudo.fecha_recaudo}
+              Fecha Abono: {recaudo.fecha_recaudo}
             </Text>
             <TextInput
               style={tw`text-lg text-green-700 border border-gray-400 font-extrabold rounded-lg px-2 py-2 mt-2 text-center`}
-              value={newRecaudo.valor_recaudo}
+              value={recaudo.valor_recaudo}
               placeholder="Valor Abono"
               onChangeText={(text) => handleChange('valor_recaudo', text)}
               keyboardType="numeric"

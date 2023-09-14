@@ -28,7 +28,7 @@ const RecaudosProvider = ({ children }) => {
     tienda: ''
   })
 
-  const recaudosCreateItem = async () => {
+  const recaudosCreateItem = async (recaudo) => {
     try {
       setLoading(true)
       const fullUrl = `${URL}/recaudos/create/`
@@ -38,7 +38,7 @@ const RecaudosProvider = ({ children }) => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify(newRecaudo)
+        body: JSON.stringify(recaudo)
       })
 
       if (response.status === 200) {
@@ -49,6 +49,9 @@ const RecaudosProvider = ({ children }) => {
       } else if (response.statusText === 'Unauthorized') {
         setLoading(false)
         logoutUser()
+      } else {
+        alert('Error al crear el recaudo')
+        setLoading(false)
       }
     } catch (error) {
       alert('Error al crear el recaudo')
@@ -100,9 +103,11 @@ const RecaudosProvider = ({ children }) => {
         setLoading(false)
       } else if (response.statusText === 'Unauthorized') {
         logoutUser()
+        setLoading(false)
       }
     } catch (error) {
       alert('Error al cargar los recaudos')
+      setLoading(false)
     }
   }
 
@@ -123,6 +128,7 @@ const RecaudosProvider = ({ children }) => {
         setLoading(false)
       } else if (response.statusText === 'Unauthorized') {
         logoutUser()
+        setLoading(false)
       }
     } catch (error) {
       alert('Error al cargar los recaudos por fecha')
@@ -130,12 +136,12 @@ const RecaudosProvider = ({ children }) => {
     }
   }
 
-  const handleChange = (name, value) => {
-    setNewRecaudo({
-      ...newRecaudo,
-      [name]: value
-    })
-  }
+  // const handleChange = (name, value) => {
+  //   setNewRecaudo({
+  //     ...newRecaudo,
+  //     [name]: value
+  //   })
+  // }
 
   const [tipoFalla, setTipoFalla] = useState({
     comentario: '',
@@ -225,7 +231,7 @@ const RecaudosProvider = ({ children }) => {
     recaudos,
 
     SelectedRecaudo,
-    handleChange,
+    // handleChange,
     noPago,
     getRecaudos,
     recaudosCreateItem,
